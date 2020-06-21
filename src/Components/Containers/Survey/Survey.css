@@ -1,0 +1,9 @@
+.survey {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  background: linear-gradient(90deg, #5041b2 0%, #7969e6 100%);
+  align-items: center;
+  padding-top: 280px;
+}
+

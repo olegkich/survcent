@@ -1,13 +1,15 @@
 import * as React from 'react';
 import './Survey.css'
+import ActiveSurvey from '../../Presenters/ActiveSurvey/ActiveSurvey';
 
 export interface SurveyProps {
   
 }
  
 const Survey: React.SFC<SurveyProps> = () => {
-  return ( <div>
-    <h1>Survey</h1>
+  return ( <div className='survey'>
+      <h1>Survey Name</h1>
+      <ActiveSurvey/>
   </div> );
 }
  
