@@ -1,0 +1,30 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  background: linear-gradient(90deg, #b2414a 0%, #e66984 100%);
+  padding-left: 100px;
+}
+
+.your-survey-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.add-survey {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: xx-large;
+  cursor: pointer;
+  height: 100px;
+  width: 160px;
+  border: 2px solid #fff;
+  border-radius: 15px;
+  margin: 20px;
+}
+
+.add-survey:hover {
+  transition: ease-in 0.3s;
+  background: rgba(255, 255, 255, 0.253);
+}

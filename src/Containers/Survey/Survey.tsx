@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './Survey.css'
-import ActiveSurvey from '../../Components/ActiveSurvey/ActiveSurvey';
+import ActiveSurvey from '../../Components/Components/ActiveSurvey/ActiveSurvey';
 
 export interface SurveyProps {
   
