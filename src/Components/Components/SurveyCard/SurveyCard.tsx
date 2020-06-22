@@ -3,7 +3,7 @@ import "./SurveyCard.css";
 
 export interface SurveyCardProps {}
 
-const SurveyCard: React.SFC<SurveyCardProps> = () => {
+const SurveyCard: React.SFC<SurveyCardProps> = (props) => {
   return (
     <div className="survey-card">
       <span>Survey name</span>
