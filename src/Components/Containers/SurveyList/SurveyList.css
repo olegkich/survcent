@@ -1,0 +1,56 @@
+.survey-list {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  background: linear-gradient(90deg, #b2414a 0%, #e66984 100%);
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.your-survey-container {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+}
+
+.add-survey-container {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+}
+
+.add-survey {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: xx-large;
+  cursor: pointer;
+  height: 80px;
+  width: 100px;
+  border: 2px solid #fff;
+  border-radius: 15px;
+  margin: 20px;
+}
+
+.add-survey:hover {
+  transition: ease-in 0.3s;
+  background: rgba(255, 255, 255, 0.253);
+}
+
+.search-survey {
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  margin-top: 10px;
+  margin-left: 10px;
+  width: 280px;
+}
+
+.other-survey-list {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  flex-direction: row;
+  height: auto;
+  width: fit-content;
+}
