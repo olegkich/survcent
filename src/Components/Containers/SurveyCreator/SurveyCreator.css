@@ -1,2 +1,45 @@
+.surveyCreator {
+  height: 100vh;
+  background: linear-gradient(90deg, #5041b2 0%, #7969e6 100%);
+  padding-left: 100px;
+  padding-right: 100px;
+}
 
+.surveyCreator-container {
+  margin-top: 20px;
+  display: flex;
+}
 
+.surveyCreator-questions {
+  border: 2px solid #fff;
+  border-radius: 15px;
+  width: 50%;
+}
+
+.questions-header {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+
+.questions-list {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.header-btn {
+  font-size: large;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.questions-item {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #fff;
+  border-radius: 15px;
+  margin: 5px;
+  cursor: pointer;
+  padding: 5px;
+}

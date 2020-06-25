@@ -1,24 +1,24 @@
-.survey-list {
+.surveyList {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  height: 100vh;
   background: linear-gradient(90deg, #b2414a 0%, #e66984 100%);
   padding-left: 100px;
   padding-right: 100px;
 }
 
-.your-survey-container {
+.surveyList-container {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
 }
 
-.add-survey-container {
+.addSurvey-container {
   display: flex;
   align-items: center;
   justify-self: center;
 }
 
-.add-survey {
+.addSurvey-btn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,26 +31,18 @@
   margin: 20px;
 }
 
-.add-survey:hover {
+.addSurvey-btn:hover {
   transition: ease-in 0.3s;
   background: rgba(255, 255, 255, 0.253);
 }
 
-.search-survey {
+.searchSurvey {
   display: flex;
   align-items: center;
 }
 
-.search-input {
+.searchSurvey-input {
   margin-top: 10px;
   margin-left: 10px;
   width: 280px;
-}
-
-.other-survey-list {
-  display: grid;
-  grid-template-columns: repeat(9, 1fr);
-  flex-direction: row;
-  height: auto;
-  width: fit-content;
 }

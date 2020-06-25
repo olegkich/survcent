@@ -25,9 +25,11 @@ const MenuDrawer: React.SFC<MenuDrawerProps> = (props) => {
   }
 
   return (
-    <nav className={cls.join(" ")}>
-      <ul>{renderLinks()}</ul>
-    </nav>
+    <div>
+      <nav className={cls.join(" ")}>
+        <ul>{renderLinks()}</ul>
+      </nav>
+    </div>
   );
 };
 
