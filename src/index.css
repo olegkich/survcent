@@ -27,3 +27,16 @@ input {
 ::placeholder {
   color: rgba(255, 255, 255, 0.363);
 }
+
+.btn {
+  border: 2px solid #fff;
+  border-radius: 15px;
+  padding: 5px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.btn:hover {
+  transition: 0.7s;
+  background: rgba(255, 255, 255, 0.568);
+}
