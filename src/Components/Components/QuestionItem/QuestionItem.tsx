@@ -2,9 +2,9 @@ import * as React from "react";
 import { Guid } from "guid-typescript";
 
 export interface QuestionItemProps {
-  question: { question: string; id: Guid };
+  question: { question: string; id: Guid; isUndefined: boolean };
   onDelete: (id: Guid) => void;
-  onClick: (question: { question: string; id: Guid }) => void;
+  onClick: (question: any) => void;
 }
 
 const QuestionItem: React.SFC<QuestionItemProps> = (props) => {

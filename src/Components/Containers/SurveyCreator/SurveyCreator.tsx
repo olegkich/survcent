@@ -2,20 +2,38 @@ import * as React from "react";
 import "./SurveyCreator.css";
 // using guid because no shortid for typescript
 import { Guid } from "guid-typescript";
-import { CANCELLED } from "dns";
 import QuestionItem from "../../Components/QuestionItem/QuestionItem";
+import { RouteComponentProps } from "react-router-dom";
 
-export interface SurveyCreatorProps {}
+export interface SurveyCreatorProps extends RouteComponentProps {}
 
-const SurveyCreator: React.SFC<SurveyCreatorProps> = () => {
+export interface IQuestion {
+  question: string;
+  id: Guid;
+  isUndeifned: boolean;
+}
+const SurveyCreator: React.SFC<SurveyCreatorProps> = ({ history }) => {
+  const initialActiveQuestion = {
+    question: "no question selected",
+    id: Guid.create(),
+    isUndeifned: true,
+  };
+
+  const [surveyName, setSurveyName] = React.useState("");
   const [questionInput, setQuestionInput] = React.useState("");
   const [optionInput, setOptionInput] = React.useState("");
 
   const [questions, setQuestions] = React.useState(Array());
   const [options, setOptions] = React.useState(Array());
 
-  const questionObject = { question: "", id: Guid.create() };
-  const [activeQuestion, setActiveQuestion] = React.useState(questionObject);
+  const [activeQuestion, setActiveQuestion] = React.useState<IQuestion>(
+    initialActiveQuestion
+  );
+
+  const optionPlaceholder =
+    activeQuestion === initialActiveQuestion
+      ? "select a question"
+      : "create an option...";
 
   const optionsLeft =
     5 -
@@ -26,9 +44,17 @@ const SurveyCreator: React.SFC<SurveyCreatorProps> = () => {
   };
 
   const questionSubmit = () => {
+    if (questionInput.length > 70) {
+      setQuestionInput("your question is too long");
+      return;
+    }
+    if (questions.length === 15) {
+      setQuestionInput("15 questions max");
+      return;
+    }
     setQuestions([
       ...questions,
-      { question: questionInput, id: Guid.create() },
+      { question: questionInput, id: Guid.create(), isUndefined: false },
     ]);
     setQuestionInput("");
   };
@@ -37,14 +63,13 @@ const SurveyCreator: React.SFC<SurveyCreatorProps> = () => {
     if (
       questions.filter((question) => question.id === id)[0] === activeQuestion
     ) {
-      setActiveQuestion(questionObject);
-      console.log("called", activeQuestion);
+      setActiveQuestion(initialActiveQuestion);
     }
     setOptions(options.filter((option) => option.questionId !== id));
     setQuestions(questions.filter((question) => question.id !== id));
   };
 
-  const questionClick = (question: { question: string; id: Guid }) => {
+  const questionClick = (question: IQuestion) => {
     setActiveQuestion(question);
   };
 
@@ -53,7 +78,7 @@ const SurveyCreator: React.SFC<SurveyCreatorProps> = () => {
   };
 
   const optionSubmit = () => {
-    if (optionsLeft === 0) {
+    if (optionsLeft === 0 || activeQuestion.isUndeifned) {
       return;
     } else
       setOptions([
@@ -71,11 +96,29 @@ const SurveyCreator: React.SFC<SurveyCreatorProps> = () => {
     setOptions(options.filter((option) => option.id !== id));
   };
 
+  const surveyNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSurveyName(e.target.value);
+  };
+
+  const submitSurvey = () => {
+    const survey = {
+      name: surveyName,
+      questions,
+      options,
+    };
+    console.log(survey);
+    history.push("./list");
+  };
+
   return (
     <div className="surveyCreator">
       <div className="surveyCreator-name">
         <h1>Create a new survey </h1>
-        <input placeholder="enter survey name..." />
+        <input
+          placeholder="enter survey name..."
+          value={surveyName}
+          onChange={surveyNameChange}
+        />
       </div>
       <div className="surveyCreator-container">
         <div className="surveyCreator-questions">
@@ -108,8 +151,10 @@ const SurveyCreator: React.SFC<SurveyCreatorProps> = () => {
           </h4>
 
           <input
-            placeholder="create an option..."
-            value={optionsLeft === 0 ? "" : optionInput}
+            placeholder={optionPlaceholder}
+            value={
+              optionsLeft === 0 || activeQuestion.isUndeifned ? "" : optionInput
+            }
             onChange={optionChange}
           />
           <span
@@ -119,7 +164,9 @@ const SurveyCreator: React.SFC<SurveyCreatorProps> = () => {
           >
             create
           </span>
-          <strong>{activeQuestion.question}</strong>
+          <strong style={{ fontSize: "x-small" }}>
+            {activeQuestion.question}
+          </strong>
           {options
             .filter((option) => option.questionsId === activeQuestion.id)
             .map((option) => (
@@ -134,6 +181,11 @@ const SurveyCreator: React.SFC<SurveyCreatorProps> = () => {
               </div>
             ))}
         </div>
+      </div>
+      <div style={{ display: "flex" }}>
+        <h2 className="btn" style={{ padding: 10 }} onClick={submitSurvey}>
+          create the survey
+        </h2>
       </div>
     </div>
   );
