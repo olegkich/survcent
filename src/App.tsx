@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import SurveyView from "./Components/Containers/SurveyView/SurveyView";
-import SurveyList from "./Components/Containers/SurveyList/SurveyList";
-import Home from "./Components/Containers/Home/Home";
-import MenuToggle from "./Components/Components/MenuToggle/MenuToggle";
-import MenuDrawer from "./Components/Components/MenuDrawer/MenuDrawer";
-import SurveyCreator from "./Components/Containers/SurveyCreator/SurveyCreator";
+import MenuDrawer from "./Components/MenuDrawer/MenuDrawer";
+import MenuToggle from "./Components/MenuToggle/MenuToggle";
+import Home from "./Components/Home/Home";
+import Survey from "./Components/SurveyView/SurveyView";
+import List from "./Components/SurveyList/SurveyList";
+import SurveyCreator from "./Components/SurveyCreator/SurveyCreator";
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -26,8 +26,8 @@ function App() {
           <Router>
             <Switch>
               <Route path="/" exact component={Home} />
-              <Route path="/survey" exact component={SurveyView} />
-              <Route path="/list" exact component={SurveyList} />
+              <Route path="/survey" exact component={Survey} />
+              <Route path="/list" exact component={List} />
               <Route path="/create" exact component={SurveyCreator} />
             </Switch>
           </Router>

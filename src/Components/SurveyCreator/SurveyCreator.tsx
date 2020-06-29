@@ -4,6 +4,7 @@ import "./SurveyCreator.css";
 import { Guid } from "guid-typescript";
 import QuestionItem from "../../Components/QuestionItem/QuestionItem";
 import { RouteComponentProps } from "react-router-dom";
+import axios from "axios";
 
 export interface SurveyCreatorProps extends RouteComponentProps {}
 
@@ -12,6 +13,7 @@ export interface IQuestion {
   id: Guid;
   isUndeifned: boolean;
 }
+
 const SurveyCreator: React.SFC<SurveyCreatorProps> = ({ history }) => {
   const initialActiveQuestion = {
     question: "no question selected",
@@ -100,14 +102,23 @@ const SurveyCreator: React.SFC<SurveyCreatorProps> = ({ history }) => {
     setSurveyName(e.target.value);
   };
 
-  const submitSurvey = () => {
+  const submitSurvey = async () => {
     const survey = {
       name: surveyName,
-      questions,
-      options,
+      questions: JSON.stringify(
+        questions.map((questionItem) => {
+          return {
+            question: questionItem.question,
+            options: options
+              .filter((option) => option.questionsId === questionItem.id)
+              .map((optionItem) => optionItem.option),
+          };
+        })
+      ),
     };
-    console.log(survey);
-    history.push("./list");
+
+    await axios.post("http://localhost:8000/surveys/", survey);
+    history.push("/list");
   };
 
   return (
