@@ -1,12 +1,11 @@
 import * as React from "react";
-import "./SurveyCreator.css";
-// using guid because no shortid for typescript
+import "./Create.css";
 import { Guid } from "guid-typescript";
-import QuestionItem from "../../Components/QuestionItem/QuestionItem";
+import QuestionItem from "./QuestionItem/QuestionItem";
 import { RouteComponentProps } from "react-router-dom";
 import axios from "axios";
 
-export interface SurveyCreatorProps extends RouteComponentProps {}
+export interface CreateProps extends RouteComponentProps {}
 
 export interface IQuestion {
   question: string;
@@ -14,7 +13,7 @@ export interface IQuestion {
   isUndeifned: boolean;
 }
 
-const SurveyCreator: React.SFC<SurveyCreatorProps> = ({ history }) => {
+const Create: React.SFC<CreateProps> = ({ history }) => {
   const initialActiveQuestion = {
     question: "no question selected",
     id: Guid.create(),
@@ -202,4 +201,4 @@ const SurveyCreator: React.SFC<SurveyCreatorProps> = ({ history }) => {
   );
 };
 
-export default SurveyCreator;
+export default Create;

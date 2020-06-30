@@ -1,0 +1,12 @@
+.option {
+  border: 1px solid #fff;
+  border-radius: 15px;
+  cursor: pointer;
+  margin: 5px;
+  padding: 5px;
+}
+
+.option:hover {
+  transition: 0.3s;
+  background: rgba(255, 255, 255, 0.424);
+}

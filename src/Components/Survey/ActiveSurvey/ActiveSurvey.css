@@ -1,0 +1,39 @@
+.activeSurvey {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+.question {
+  display: flex;
+  border: 2px solid #fff;
+  border-radius: 15px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 10px;
+}
+
+.question h2 {
+  margin: 5px;
+}
+
+.completed {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.completed h3 {
+  text-align: center;
+  margin: 5px;
+}
+
+.completed-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.completed-btn {
+  margin: 10px;
+}

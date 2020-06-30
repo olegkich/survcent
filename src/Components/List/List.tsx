@@ -1,25 +1,30 @@
 import * as React from "react";
-import "./SurveyList.css";
-import SurveyCard from "../../Components/SurveyCard/SurveyCard";
+import "./List.css";
+import SurveyCard from "./SurveyCard/SurveyCard";
 import { RouteComponentProps } from "react-router-dom";
 import axios from "axios";
 
 export interface ListProps extends RouteComponentProps {}
 let surveys: Array<any> = [];
+export let survey_id: any = 0;
+
 const List: React.SFC<ListProps> = ({ history }) => {
   const [loading, setLoading] = React.useState(true);
 
   const getSurveys = async () => {
     surveys = await (await axios.get("http://localhost:8000/surveys/")).data;
     setLoading(false);
-    console.log(surveys);
   };
 
   getSurveys();
 
+  const handleClick = (id: number) => {
+    survey_id = React.createContext(id);
+    history.push("./survey");
+  };
+
   return (
     <div className="surveyList">
-      {console.log("render", loading, surveys)}
       <h1>Your surveys:</h1>
       <div className="surveyList-container">
         <div className="addSurvey-container">
@@ -43,7 +48,10 @@ const List: React.SFC<ListProps> = ({ history }) => {
           surveys.map(
             (surveyItem: { id: number; name: string; user_id: null }) => (
               <div>
-                <SurveyCard name={surveyItem.name} />
+                <SurveyCard
+                  name={surveyItem.name}
+                  onClick={() => handleClick(surveyItem.id)}
+                />
               </div>
             )
           )
