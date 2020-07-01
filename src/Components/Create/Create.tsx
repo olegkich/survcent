@@ -31,6 +31,8 @@ const Create: React.SFC<CreateProps> = ({ history }) => {
     initialActiveQuestion
   );
 
+  const [error, setError] = React.useState("");
+
   const optionPlaceholder =
     activeQuestion === initialActiveQuestion
       ? "select a question"
@@ -101,23 +103,48 @@ const Create: React.SFC<CreateProps> = ({ history }) => {
     setSurveyName(e.target.value);
   };
 
-  const submitSurvey = async () => {
-    const survey = {
-      name: surveyName,
-      questions: JSON.stringify(
-        questions.map((questionItem) => {
-          return {
-            question: questionItem.question,
-            options: options
-              .filter((option) => option.questionsId === questionItem.id)
-              .map((optionItem) => optionItem.option),
-          };
-        })
-      ),
-    };
+  const isOptionsEmpty = () => {
+    let isEmpty: boolean = false;
+    questions.forEach((question) => {
+      if (
+        options.filter((option) => option.questionsId === question.id)
+          .length === 0
+      ) {
+        isEmpty = true;
+      }
+    });
+    return isEmpty;
+  };
 
-    await axios.post("http://localhost:8000/surveys/", survey);
-    history.push("/list");
+  const submitSurvey = async () => {
+    if (isOptionsEmpty()) {
+      setError(
+        "Cannot create survey: Every question must have at least 1 option"
+      );
+    }
+    if (questions.length === 0) {
+      setError("Cannot create survey: Your survey has no questions");
+    }
+    if (surveyName === "") {
+      setError("Cannot create survey: Survey name cannot be empty");
+    } else {
+      const survey = {
+        name: surveyName,
+        questions: JSON.stringify(
+          questions.map((questionItem) => {
+            return {
+              question: questionItem.question,
+              options: options
+                .filter((option) => option.questionsId === questionItem.id)
+                .map((optionItem) => optionItem.option),
+            };
+          })
+        ),
+      };
+
+      await axios.post("http://localhost:8000/surveys/", survey);
+      history.push("/list");
+    }
   };
 
   return (
@@ -133,13 +160,18 @@ const Create: React.SFC<CreateProps> = ({ history }) => {
       <div className="surveyCreator-container">
         <div className="surveyCreator-questions">
           <div className="questions-header">
-            <input
-              placeholder="add a new question..."
-              value={questionInput}
-              onChange={questionChange}
-            />
-            <span className="header-btn" onClick={questionSubmit}>
-              +
+            <div>
+              <input
+                placeholder="add a new question..."
+                value={questionInput}
+                onChange={questionChange}
+              />
+              <span className="header-btn" onClick={questionSubmit}>
+                +
+              </span>
+            </div>
+            <span>
+              <b>{questions.length}/15</b> questions left
             </span>
           </div>
 
@@ -192,10 +224,15 @@ const Create: React.SFC<CreateProps> = ({ history }) => {
             ))}
         </div>
       </div>
-      <div style={{ display: "flex" }}>
-        <h2 className="btn" style={{ padding: 10 }} onClick={submitSurvey}>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <h2
+          className="btn"
+          style={{ padding: 10, marginRight: 25 }}
+          onClick={submitSurvey}
+        >
           create the survey
         </h2>
+        <h3>{error}</h3>
       </div>
     </div>
   );

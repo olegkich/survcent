@@ -8,7 +8,6 @@ import Survey from "./Components/Survey/Survey";
 import List from "./Components/List/List";
 import Create from "./Components/Create/Create";
 
-let survey_id: number = 1;
 function App() {
   const [open, setOpen] = useState(false);
 
