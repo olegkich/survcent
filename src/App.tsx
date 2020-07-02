@@ -7,6 +7,8 @@ import Home from "./Components/Home/Home";
 import Survey from "./Components/Survey/Survey";
 import List from "./Components/List/List";
 import Create from "./Components/Create/Create";
+import Signup from "./Components/Home/Signup/Signup";
+import Login from "./Components/Home/Login/Login";
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -29,6 +31,8 @@ function App() {
               <Route path="/survey" exact component={Survey} />
               <Route path="/list" exact component={List} />
               <Route path="/create" exact component={Create} />
+              <Route path="/signup" exact component={Signup} />
+              <Route path="/login" exact component={Login} />
             </Switch>
           </Router>
         </main>
