@@ -17,9 +17,13 @@
 .input-container {
   display: flex;
   flex-direction: column;
-  margin: 10px 0px;
 }
 
 .input-container label {
   margin: 10px 0px;
+}
+
+.signup-form .btn {
+  margin-top: 15px;
+  margin-bottom: 5px;
 }
