@@ -11,19 +11,9 @@ import Signup from "./Components/Home/Signup/Signup";
 import Login from "./Components/Home/Login/Login";
 
 function App() {
-  const [open, setOpen] = useState(false);
-
-  const handleToggle = () => {
-    console.log(open);
-    setOpen(!open);
-    console.log(open);
-  };
-
   return (
     <div className="App">
       <div className="container">
-        <MenuDrawer isOpen={open} />
-        <MenuToggle isOpen={open} onToggle={handleToggle} />
         <main className="main">
           <Router>
             <Switch>

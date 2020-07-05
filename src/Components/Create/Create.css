@@ -6,7 +6,6 @@
 }
 
 .surveyCreator-container {
-  margin-top: 20px;
   display: flex;
 }
 
@@ -72,4 +71,20 @@
 .option-item:hover {
   transition: 0.3s;
   background: rgba(255, 255, 255, 0.102);
+}
+
+.surveyCreator-name {
+  margin-bottom: 20px;
+}
+
+.surveyCreator h1 {
+  margin-bottom: 10px;
+}
+
+.surveyCreator h3 {
+  margin: 5px 0px;
+}
+
+.surveyCreator h4 {
+  margin: 5px 0px;
 }

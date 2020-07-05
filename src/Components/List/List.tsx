@@ -10,6 +10,7 @@ export let survey_id: any = 0;
 
 const List: React.SFC<ListProps> = ({ history }) => {
   const [loading, setLoading] = React.useState(true);
+  const [filter, setFilter] = React.useState("");
 
   const getSurveys = async () => {
     surveys = await (await axios.get("http://localhost:8000/surveys/")).data;
@@ -21,6 +22,11 @@ const List: React.SFC<ListProps> = ({ history }) => {
   const handleClick = (id: number) => {
     survey_id = React.createContext(id);
     history.push("./survey");
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFilter(e.target.value);
+    surveys = surveys.filter((survey) => survey.name.includes(e.target.value));
   };
 
   return (
@@ -41,7 +47,12 @@ const List: React.SFC<ListProps> = ({ history }) => {
 
       <div className="searchSurvey">
         <h1>Other surveys</h1>
-        <input className="searchSurvey-input" placeholder="search..." />
+        <input
+          className="searchSurvey-input"
+          placeholder="search..."
+          onChange={handleChange}
+          value={filter}
+        />
       </div>
       <div className="surveyList-container">
         {!loading ? (

@@ -1,10 +1,12 @@
 import * as React from "react";
 import "./Signup.css";
 import { Formik, Field } from "formik";
+import { RouteComponentProps } from "react-router-dom";
+import Axios from "axios";
 
-export interface SignupProps {}
+export interface SignupProps extends RouteComponentProps {}
 
-const Signup: React.SFC<SignupProps> = () => {
+const Signup: React.SFC<SignupProps> = ({ history }) => {
   const [error, setError] = React.useState("");
 
   return (
@@ -12,14 +14,27 @@ const Signup: React.SFC<SignupProps> = () => {
       <div className="signup-container">
         <Formik
           initialValues={{ login: "", password: "", repeatPassword: "" }}
-          onSubmit={(data) => {
+          onSubmit={async (data) => {
             if (data.login.length === 0) {
               setError("login is required");
             } else if (data.password.length < 6) {
               setError("your password is too short");
             } else if (data.password !== data.repeatPassword) {
               setError("your password do not match");
-            } else console.log(data);
+            } else {
+              try {
+                const res = await Axios.post(
+                  "http://localhost:8000/users/signup",
+                  {
+                    login: data.login,
+                    password: data.password,
+                  }
+                );
+                history.push("/list");
+              } catch (e) {
+                setError("user with given name exists");
+              }
+            }
           }}
         >
           {({ values, handleChange, handleSubmit }) => (

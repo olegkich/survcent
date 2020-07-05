@@ -121,11 +121,9 @@ const Create: React.SFC<CreateProps> = ({ history }) => {
       setError(
         "Cannot create survey: Every question must have at least 1 option"
       );
-    }
-    if (questions.length === 0) {
+    } else if (questions.length === 0) {
       setError("Cannot create survey: Your survey has no questions");
-    }
-    if (surveyName === "") {
+    } else if (surveyName === "") {
       setError("Cannot create survey: Survey name cannot be empty");
     } else {
       const survey = {
@@ -149,14 +147,15 @@ const Create: React.SFC<CreateProps> = ({ history }) => {
 
   return (
     <div className="surveyCreator">
+      <h1>Create a new survey </h1>
       <div className="surveyCreator-name">
-        <h1>Create a new survey </h1>
         <input
           placeholder="enter survey name..."
           value={surveyName}
           onChange={surveyNameChange}
         />
       </div>
+      <h4>Questions</h4>
       <div className="surveyCreator-container">
         <div className="surveyCreator-questions">
           <div className="questions-header">

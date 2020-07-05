@@ -1,10 +1,12 @@
 import * as React from "react";
 import "./Login.css";
 import { Field, Formik } from "formik";
+import { RouteComponentProps } from "react-router-dom";
+import Axios from "axios";
 
-export interface LoginProps {}
+export interface LoginProps extends RouteComponentProps {}
 
-const Login: React.SFC<LoginProps> = () => {
+const Login: React.SFC<LoginProps> = ({ history }) => {
   const [error, setError] = React.useState("");
 
   return (
@@ -12,8 +14,20 @@ const Login: React.SFC<LoginProps> = () => {
       <div className="login-container">
         <Formik
           initialValues={{ login: "", password: "" }}
-          onSubmit={(data) => {
-            console.log(data);
+          onSubmit={async (data) => {
+            if (data.password.length === 0 || data.login.length === 0) {
+              setError("enter all fields");
+              return;
+            }
+            const res = await Axios.post("http://localhost:8000/users/login", {
+              login: data.login,
+              password: data.password,
+            });
+            console.log(res.data, "test");
+            setError(res.data);
+            if (res.status === 202) {
+              history.push("/list");
+            }
           }}
         >
           {({ values, handleChange, handleSubmit }) => (
