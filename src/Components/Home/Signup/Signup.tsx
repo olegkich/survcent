@@ -30,7 +30,7 @@ const Signup: React.SFC<SignupProps> = ({ history }) => {
                     password: data.password,
                   }
                 );
-                history.push("/list");
+                history.push("/login");
               } catch (e) {
                 setError("user with given name exists");
               }

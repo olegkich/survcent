@@ -23,10 +23,13 @@ const Login: React.SFC<LoginProps> = ({ history }) => {
               login: data.login,
               password: data.password,
             });
-            console.log(res.data, "test");
-            setError(res.data);
+            console.log(res, "test");
+            setError(res.data.error);
             if (res.status === 202) {
+              localStorage.setItem("user", JSON.stringify(res.data));
+
               history.push("/list");
+              window.location.reload(true);
             }
           }}
         >

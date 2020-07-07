@@ -13,6 +13,9 @@ const Home: React.SFC<HomeProps> = ({ history }) => {
     history.push("./signup");
   };
 
+  if (localStorage.getItem("user")) {
+    history.push("/list");
+  }
   return (
     <div className="home">
       <div className="home-wrapper">

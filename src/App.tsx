@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import MenuDrawer from "./Components/UI/MenuDrawer/MenuDrawer";
@@ -18,11 +18,15 @@ function App() {
           <Router>
             <Switch>
               <Route path="/" exact component={Home} />
-              <Route path="/survey" exact component={Survey} />
-              <Route path="/list" exact component={List} />
-              <Route path="/create" exact component={Create} />
               <Route path="/signup" exact component={Signup} />
               <Route path="/login" exact component={Login} />
+              {localStorage.getItem("user") !== null ? (
+                <React.Fragment>
+                  <Route path="/survey" exact component={Survey} />
+                  <Route path="/list" exact component={List} />
+                  <Route path="/create" exact component={Create} />
+                </React.Fragment>
+              ) : null}
             </Switch>
           </Router>
         </main>

@@ -6,6 +6,8 @@ import axios from "axios";
 
 export interface ListProps extends RouteComponentProps {}
 let surveys: Array<any> = [];
+let yourSurveys: Array<any> = [];
+
 export let survey_id: any = 0;
 
 const List: React.SFC<ListProps> = ({ history }) => {
@@ -14,6 +16,11 @@ const List: React.SFC<ListProps> = ({ history }) => {
 
   const getSurveys = async () => {
     surveys = await (await axios.get("http://localhost:8000/surveys/")).data;
+    yourSurveys = await (
+      await axios.get(
+        `http://localhost:8000/users/surveys/${localStorage.getItem("user")}`
+      )
+    ).data;
     setLoading(false);
   };
 
@@ -42,6 +49,13 @@ const List: React.SFC<ListProps> = ({ history }) => {
           >
             +
           </div>
+          {yourSurveys.map((surveyItem) => (
+            <SurveyCard
+              survey={surveyItem.name}
+              user=""
+              onClick={() => history.push("/create")}
+            />
+          ))}
         </div>
       </div>
 
@@ -57,10 +71,11 @@ const List: React.SFC<ListProps> = ({ history }) => {
       <div className="surveyList-container">
         {!loading ? (
           surveys.map(
-            (surveyItem: { id: number; name: string; user_id: null }) => (
+            (surveyItem: { id: number; name: string; login: string }) => (
               <div>
                 <SurveyCard
-                  name={surveyItem.name}
+                  user={surveyItem.login}
+                  survey={surveyItem.name}
                   onClick={() => handleClick(surveyItem.id)}
                 />
               </div>

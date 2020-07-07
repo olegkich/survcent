@@ -3,13 +3,15 @@ import "./SurveyCard.css";
 
 export interface SurveyCardProps {
   onClick: () => void;
-  name: string;
+  survey: string;
+  user: string;
 }
 
 const SurveyCard: React.SFC<SurveyCardProps> = (props) => {
   return (
     <div className="survey-card" onClick={props.onClick}>
-      <span>{props.name}</span>
+      <b>{props.user}</b>
+      <span>{props.survey}</span>
     </div>
   );
 };

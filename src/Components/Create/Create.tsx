@@ -127,6 +127,7 @@ const Create: React.SFC<CreateProps> = ({ history }) => {
       setError("Cannot create survey: Survey name cannot be empty");
     } else {
       const survey = {
+        userId: JSON.parse(localStorage.getItem("user")),
         name: surveyName,
         questions: JSON.stringify(
           questions.map((questionItem) => {
@@ -141,7 +142,7 @@ const Create: React.SFC<CreateProps> = ({ history }) => {
       };
 
       await axios.post("http://localhost:8000/surveys/", survey);
-      history.push("/list");
+      console.log(survey);
     }
   };
 
