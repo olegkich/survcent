@@ -7,10 +7,10 @@ export interface OptionProps {
 }
 
 const Option: React.SFC<OptionProps> = (props) => {
-  console.log(props.option);
+  console.log(props.option, "option");
   return (
     <div className="option" onClick={props.onClick}>
-      {props.option}
+      {props.option.options}
     </div>
   );
 };

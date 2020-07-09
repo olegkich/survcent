@@ -15,32 +15,19 @@ interface IQuestion {
 }
 
 const ActiveSurvey: React.SFC<ActiveSurveyProps> = (props) => {
+  console.log(props.data);
   const questions: IQuestion[] = [...props.data.questions];
-  const options = props.data.options.map((option: any) => {
-    return {
-      id: option.id,
-      options: JSON.parse(option.options),
-      question_id: option.question_id,
-    };
-  });
+  const options = props.data.options;
 
   const [completed, setCompleted] = React.useState(false);
   let [activeQuestion, setActiveQuestion] = React.useState(0);
+
   const activeOptions = options.filter(
     (option: any) => option.question_id === questions[activeQuestion].id
   );
 
-  console.log(activeOptions, activeOptions.length);
-  console.log(
-    activeOptions.map((option: any) => {
-      return "test";
-    }),
-    "tst"
-  );
-
+  console.log(activeOptions);
   const handleClick = (option: any) => {
-    console.log(option);
-
     if (activeQuestion === questions.length - 1) {
       setCompleted(true);
     } else {
@@ -71,7 +58,7 @@ const ActiveSurvey: React.SFC<ActiveSurveyProps> = (props) => {
             </span>
           </div>
           <div className="options-list">
-            {activeOptions[0].options.map((option: any) => {
+            {activeOptions.map((option: any) => {
               return (
                 <Option onClick={() => handleClick(option)} option={option} />
               );
